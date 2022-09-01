@@ -22,12 +22,13 @@ api = tradeapi.REST(
 )
 
 # Loaded models
-model = pickle.load(open(Path('Project-2/Resources/model.pkl'),'rb'))
-scaler = pickle.load(open(Path('Project-2/Resources/scaler.pkl'), 'rb'))
+model = pickle.load(open(Path('Resources/model.pkl'),'rb'))
+scaler = pickle.load(open(Path('Resources/scaler.pkl'), 'rb'))
 
 # User inputs
-crypto = 'BTCUSD'
-investment = 1000 #in USD
+os.system('clear')
+crypto = input('What is the code of the crypto currency  would you like to buy? ') + 'USD'
+investment = int(input('How much would you like to invest in total in USD? '))
 investment_increment = investment/20
 
 # Function for intiating buy/sell
@@ -54,7 +55,6 @@ def intiate():
     X_scaled = scaler.transform(X)
     # Predict the y variable
     signal = model.predict(X_scaled)
-
     # Initiate buying/selling
     if signal == 1:
         api.submit_order(
