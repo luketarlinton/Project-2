@@ -3,6 +3,7 @@ import streamlit as st
 import pandas as pd
 from pathlib import Path
 import numpy as np
+from numpy import nan
 import hvplot.pandas
 import holoviews as hv
 from PIL import Image
@@ -11,14 +12,14 @@ from PIL import Image
 st.set_page_config(layout="wide", initial_sidebar_state='collapsed')
 
 # Display Bitcoin logo image
-image = Image.open('../Resources/Images/Bitcoin-Logo.png')
+image = Image.open('../Resources/Images/cryptocalculator.jpg')
 st.image(image, width = 200)
-st.markdown("# Bitcoin Predictor Alpha")
-st.markdown('### A Bitcoin prediction and analysis project')
+st.markdown("# Crypto Predictor Alpha")
+st.markdown('### A Crypto prediction and analysis project')
 st.markdown('Welcome to the homepage of our predictor app')
  
 # Initialize Dataframes
-bitcoin_df = pd.read_csv(Path('../master.csv'))
+bitcoin_df = pd.read_csv(Path('../master.csv'),infer_datetime_format=True, parse_dates=True, index_col='timestamp')
 
 # Structure Data
 #bitcoin_df.sort_values()
