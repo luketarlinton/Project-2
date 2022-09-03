@@ -19,7 +19,7 @@ st.markdown('### A Crypto prediction and analysis project')
 st.markdown('Welcome to the homepage of our predictor app')
  
 # Initialize Dataframes
-bitcoin_df = pd.read_csv(Path('../master.csv'),infer_datetime_format=True, parse_dates=True, index_col='timestamp')
+bitcoin_df = pd.read_csv(Path('../Resources/master.csv'),infer_datetime_format=True, parse_dates=True, index_col='timestamp')
 
 # Structure Data
 #bitcoin_df.sort_values()
