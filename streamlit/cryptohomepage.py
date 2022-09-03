@@ -26,7 +26,7 @@ bitcoin_df = pd.read_csv(Path('../master.csv'),infer_datetime_format=True, parse
 
 # sorting by daily % increase after converting 'actual_returns' column to sortable value
 copied_bitcoin = bitcoin_df.copy()
-copied_bitcoin['Price'] = copied_bitcoin['close'].astype(float)
+copied_bitcoin['Price'] = copied_bitcoin['close']
 sorted_bitcoin = copied_bitcoin.sort_values('Price', ascending=True)
 
 daily_plot = sorted_bitcoin.hvplot.area(
