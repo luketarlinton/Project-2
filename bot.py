@@ -30,9 +30,10 @@ os.system('clear')
 crypto = input('What is the code of the crypto currency would you like to buy? ').upper() + 'USD'
 investment = int(input('How much are you willing to spend per trade in USD? '))
 
-# Function for intiating buy/sell
+# Functions
 def pull_data():
     os.system('clear')
+    # Pull price
     price = (api.get_latest_crypto_bar(crypto, 'CBSE')).c
     amount = investment/price
     print(f'The current price of {crypto} is {price} USD')
@@ -80,9 +81,10 @@ def initiate():
 def hour_loop():
     i = 60
     while i > 0:
-        print(f'About {i} minutes until next entry/exit check...')#, end='\r')
+        print(f'About {i} minutes until next entry/exit check...')
         i -= 1
-        time.sleep(0.1)
+        time.sleep(0.1) # in seconds
+        # Overwrite last line
         sys.stdout.write('\x1b[1A')
         sys.stdout.write('\x1b[2K')
 
