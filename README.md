@@ -14,14 +14,14 @@ Create an optimal machine learning model, that buys and sell cryptocurrency in r
 ### Applying ML in the context of technologies learned:
 Utilizing ML and classifiers the objective is to provide analysis of the actual historical returns data against multiple strategy returns with visualization aswell as informing the customer of the perceived confidence (accuracy) with which each ML classifier completed its final analysis.
 
-## Usage and Installation Instructions
+### Usage and Installation Instructions
 This application requires the following libraries to function. This was built using the package and environemnt manager, Conda, however, another manage may be used. The following dependencies are required:
 - pandas
 - alpaca-trade-api
 - sklearn
 - streamlit
 
-## Project Evaluation
+### Evaluation
 If given more time, we’d implement and improve on many different parts. This includes:
 - Allowing the bot to invest in multiple cryptocurrencies at once.
 - Optimising the models for greater accuracy.
