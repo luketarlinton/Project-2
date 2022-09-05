@@ -27,22 +27,21 @@ scaler = pickle.load(open(Path('Resources/scaler.pkl'), 'rb'))
 
 # User inputs
 os.system('clear')
-crypto = input('What is the code of the crypto currency  would you like to buy? ') + 'USD'
-investment = int(input('How much would you like to invest in total in USD? '))
-investment_increment = investment/20
+crypto = input('What is the code of the crypto currency would you like to buy? ') + 'USD'
+investment = int(input('How much are you willing to spend per trade in USD? '))
 
 # Function for intiating buy/sell
 def intiate():
     os.system('clear')
     price = (api.get_latest_crypto_bar(crypto, 'CBSE')).c
-    amount = investment_increment/price
+    amount = investment/price
     print(f'The current price of {crypto} is {price} USD')
-    print('Intiating buy/sell...')
+    print('Checking trade signal...')
     # Pull 10 days recent data
-    start_date = (datetime.today().date() - timedelta(days=9)).isoformat()
+    start_date = (datetime.today().date() - timedelta(days=10)).isoformat()
     data = api.get_crypto_bars(
         symbol=crypto,
-        timeframe='1Day',
+        timeframe='1H',
         start=start_date
     ).df
     # Clean and manipulate data to run through model
@@ -55,15 +54,16 @@ def intiate():
     X_scaled = scaler.transform(X)
     # Predict the y variable
     signal = model.predict(X_scaled)
+    entry_exit = (signal[1] - signal[0])/2
     # Initiate buying/selling
-    if signal == 1:
+    if entry_exit == 1:
         api.submit_order(
             symbol=crypto,
             qty=amount,
             time_in_force='gtc'
         )
         print(f'Successfully bought {round(amount, 5)} of {crypto} for 50 USD.')
-    elif signal == -1:
+    elif entry_exit == -1:
         api.submit_order(
             symbol=crypto,
             qty=amount,
@@ -71,14 +71,16 @@ def intiate():
             time_in_force = 'gtc'
         )
         print(f'Successfully sold {round(amount, 5)} of {crypto} for 50 USD.')
+    else:
+        print(f'Holding.')
 
 # Start of loop
 while True:
     intiate()
-    i = 24
+    i = 60
     while i > 0:
-        print(f'About {i} hours until next buy/sell...')#, end='\r')
+        print(f'About {i} minutes until next entry/exit check...')#, end='\r')
         i -= 1
-        time.sleep(2)
+        time.sleep(0.5)
         sys.stdout.write('\x1b[1A')
         sys.stdout.write('\x1b[2K')
